@@ -5,13 +5,19 @@ import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenS
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
-import Day from './panels/WeekDays';
+
+function getWeekDay() {
+    var days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+    var day = new Date().getDay();
+
+    return days[day];
+}
 
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+	var date = getWeekDay();
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -35,9 +41,7 @@ const App = () => {
 
 	return (
 		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
-			<Persik id='persik' go={go} />
-			<Day id='monday' name='Понедельник' onBackClick={go}/>
+			<Home id='home' go={go} today={date}/>
 		</View>
 	);
 }

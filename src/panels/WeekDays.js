@@ -1,22 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent } from '@vkontakte/vkui';
-import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
+import { Panel, PanelHeader, PanelHeaderBack, Group, Header, CellButton } from '@vkontakte/vkui';
 
-const Day = props => (
-    <Panel id = {props.id}>
-        <PanelHeader left={<PanelHeaderBack onClick={props.onBackClick} data-to='home'/>}>
-            {/* <PanelHeaderContent
-              aside={<Icon16Dropdown style={{ transform: `rotate(${this.state.contextOpened ? '180deg' : '0'})` }} />}
-              onClick={this.toggleContext}
-            >
-                {props.name}
-            </PanelHeaderContent> */}
+const Day = ({name, id, onBackClick}) => (
+    // //const [contextOpened, toggleContext] = useState(true);
+    //const [day, selectDay] = useState('Понедельник');
 
-            {props.name}
+
+
+    <Panel id = {id}>
+        <PanelHeader left={<PanelHeaderBack onClick={onBackClick} data-to='home'/>}>
+            {name}
         </PanelHeader>
-
-        Тело панели {props.name}
+        <Group header={<Header mode="secondary">Дни недели</Header>}>
+            <CellButton onClick={name = "Понедельник"}>
+                Понедельник
+            </CellButton>
+            <CellButton onClick={name = "Вторник"}>
+                Вторник
+            </CellButton>
+            <CellButton onClick={name = 'Среда'}>
+                Среда
+            </CellButton>
+            <CellButton onClick={name='Четверг'}>
+                Четверг
+            </CellButton>
+            <CellButton onClick={name='Пятница'}>
+                Пятница
+            </CellButton>
+            <CellButton onClick={name='Суббота'}>
+                Суббота
+            </CellButton>
+        </Group>
     </Panel>
 );
 

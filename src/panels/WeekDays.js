@@ -1,19 +1,27 @@
 import React from 'react';
-import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
+import PropTypes from 'prop-types';
+import { Panel, PanelHeader, PanelHeaderBack, PanelHeaderContent } from '@vkontakte/vkui';
 import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
 
-const Day = ({id, name, onBackClick}) => {
-    <Panel>
-        <PanelHeader left={<PanelHeaderBack onClick={onBackClick} />}>
+const Day = props => (
+    <Panel id = {props.id}>
+        <PanelHeader left={<PanelHeaderBack onClick={props.onBackClick} data-to='home'/>}>
             <PanelHeaderContent
               aside={<Icon16Dropdown style={{ transform: `rotate(${this.state.contextOpened ? '180deg' : '0'})` }} />}
               onClick={this.toggleContext}
             >
-                {name}
+                {props.name}
             </PanelHeaderContent>
         </PanelHeader>
 
-        Тело панели {name}
+        Тело панели {props.name}
     </Panel>
+);
+
+Day.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    go: PropTypes.func.isRequired
 }
 
+export default Day;

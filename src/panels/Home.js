@@ -31,7 +31,7 @@ const Home = ({ id, go, fetchedUser }) => (
 
 		<Group title="To Week">
 			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="week">
+				<Button size="xl" level="2" onClick={go} data-to="monday">
 					Show me the Monday, please
 				</Button>
 			</Div>

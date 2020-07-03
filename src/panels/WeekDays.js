@@ -6,12 +6,14 @@ import Icon16Dropdown from '@vkontakte/icons/dist/16/dropdown';
 const Day = props => (
     <Panel id = {props.id}>
         <PanelHeader left={<PanelHeaderBack onClick={props.onBackClick} data-to='home'/>}>
-            <PanelHeaderContent
+            {/* <PanelHeaderContent
               aside={<Icon16Dropdown style={{ transform: `rotate(${this.state.contextOpened ? '180deg' : '0'})` }} />}
               onClick={this.toggleContext}
             >
                 {props.name}
-            </PanelHeaderContent>
+            </PanelHeaderContent> */}
+
+            {props.name}
         </PanelHeader>
 
         Тело панели {props.name}

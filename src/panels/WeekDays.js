@@ -1,43 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel, PanelHeader, PanelHeaderBack, Group, Header, CellButton } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Group, Header, CellButton } from '@vkontakte/vkui';
 
-const Day = ({name, id, onBackClick}) => (
-    // //const [contextOpened, toggleContext] = useState(true);
-    //const [day, selectDay] = useState('Понедельник');
+const selectDay = (props) => {
+    return 0
+}
 
-
-
-    <Panel id = {id}>
-        <PanelHeader left={<PanelHeaderBack onClick={onBackClick} data-to='home'/>}>
-            {name}
-        </PanelHeader>
-        <Group header={<Header mode="secondary">Дни недели</Header>}>
-            <CellButton onClick={name = "Понедельник"}>
+const Day = (props) => {
+    return (
+        <Panel id={props.id}>
+            <PanelHeader>
+                {props.day}
+            </PanelHeader>
+        <Group>
+            <CellButton>
                 Понедельник
             </CellButton>
-            <CellButton onClick={name = "Вторник"}>
+            <CellButton onClick={selectDay('Вторник')}>
                 Вторник
             </CellButton>
-            <CellButton onClick={name = 'Среда'}>
+            <CellButton onClick={selectDay('Среда')}>
                 Среда
             </CellButton>
-            <CellButton onClick={name='Четверг'}>
+            <CellButton onClick={selectDay('Четверг')}>
                 Четверг
             </CellButton>
-            <CellButton onClick={name='Пятница'}>
+            <CellButton onClick={selectDay('Пятница')}>
                 Пятница
             </CellButton>
-            <CellButton onClick={name='Суббота'}>
+            <CellButton onClick={selectDay('Суббота')}>
                 Суббота
             </CellButton>
         </Group>
-    </Panel>
-);
+        <Group>
+            <Header>
+                Если судить по заголовку, сегодня {props.day}!
+            </Header>
+        </Group>
+        <Group>
+        <CellButton onClick={props.go} data-toview='today' data-topanel='home'>
+            Перейти на View 1
+        </CellButton>
+        </Group>
+        </Panel>
+    )
+}
 
 Day.propTypes = {
     id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     go: PropTypes.func.isRequired
 }
 

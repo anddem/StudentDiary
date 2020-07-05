@@ -1,18 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import bridge from '@vkontakte/vk-bridge';
+import React, { useState } from 'react';
 import View from '@vkontakte/vkui/dist/components/View/View';
-import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
+import Root from '@vkontakte/vkui/dist/components/Root/Root'
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
 import Day from './panels/WeekDays';
 
-const App = () => {
-	const [activePanel, setActivePanel] = useState('home');
-	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+function getWeekDay() {
+    var days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+    var day = new Date().getDay();
 
+    return days[day];
+}
+
+const App = () => {
+	const [activeView, setActiveView] = useState('today');
+	const [activePanel, setActivePanel] = useState('home');
+	const [activeStory, setActiveStory] = useState('main')
+
+	var date = getWeekDay();
+
+	const go = e => {
+		if (e.currentTarget.dataset.toview) {
+			setActiveView(e.currentTarget.dataset.toview)
+		}
+		if (e.currentTarget.dataset.topanel) {
+			setActivePanel(e.currentTarget.dataset.topanel)
+		}
+	}
+
+	return (
+		<Root activeView={activeView}>
+			<View id='today' activePanel={activePanel}>
+				<Home id='home' go={go} today={date}/>
+			</View>
+
+			<View id='week' activePanel={activePanel}>
+				<Day id='weekdays' go={go} day={date}/>
+			</View>
+		</Root>
+	);
+}
+
+export default App;
+
+/*
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
 			if (type === 'VKWebAppUpdateConfig') {
@@ -28,19 +60,4 @@ const App = () => {
 		}
 		fetchData();
 	}, []);
-
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
-
-	return (
-		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
-			<Persik id='persik' go={go} />
-			<Day id='monday' name='Понедельник' onBackClick={go}/>
-		</View>
-	);
-}
-
-export default App;
-
+*/

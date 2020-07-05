@@ -1,54 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel, PanelHeader, Group, Header, CellButton } from '@vkontakte/vkui';
-
-const selectDay = (props) => {
-    return 0
-}
+import { Panel, PanelHeader, Group, CellButton } from '@vkontakte/vkui';
+import Title from '@vkontakte/vkui/dist/components/Typography/Title/Title';
 
 const Day = (props) => {
+    return (
+        <CellButton onClick={props.onClick} data-day={props.day}>
+            {props.day}
+        </CellButton>
+    )
+}
+
+const LastPressed = day => {
+    return (
+        <Group>
+            <Title level='1' weight='semibold'>
+                {day ? day : ''}
+            </Title>
+        </Group>
+    )
+}
+
+const WorkDays = onClick => {
+    return (
+        <Group>
+            <Day onClick={onClick} day='Понедельник'/>
+            <Day onClick={onClick} day='Вторник'/>
+            <Day onClick={onClick} day='Среда'/>
+            <Day onClick={onClick} day='Четверг'/>
+            <Day onClick={onClick} day='Пятница'/>
+            <Day onClick={onClick} day='Суббота'/>
+        </Group>
+    )
+}
+
+const Days = (props) => {
     return (
         <Panel id={props.id}>
             <PanelHeader>
                 {props.day}
             </PanelHeader>
         <Group>
-            <CellButton>
-                Понедельник
-            </CellButton>
-            <CellButton onClick={selectDay('Вторник')}>
-                Вторник
-            </CellButton>
-            <CellButton onClick={selectDay('Среда')}>
-                Среда
-            </CellButton>
-            <CellButton onClick={selectDay('Четверг')}>
-                Четверг
-            </CellButton>
-            <CellButton onClick={selectDay('Пятница')}>
-                Пятница
-            </CellButton>
-            <CellButton onClick={selectDay('Суббота')}>
-                Суббота
-            </CellButton>
+            <Day onClick={props.setLPD} day='Понедельник'/>
+            <Day onClick={props.setLPD} day='Вторник'/>
+            <Day onClick={props.setLPD} day='Среда'/>
+            <Day onClick={props.setLPD} day='Четверг'/>
+            <Day onClick={props.setLPD} day='Пятница'/>
+            <Day onClick={props.setLPD} day='Суббота'/>
         </Group>
         <Group>
-            <Header>
-                Если судить по заголовку, сегодня {props.day}!
-            </Header>
-        </Group>
-        <Group>
-        <CellButton onClick={props.go} data-toview='today' data-topanel='home'>
-            Перейти на View 1
-        </CellButton>
+            <Title level='1' weight='semibold'>
+                {props.lastPD ? `В прошлый раз выбрали ${props.lastPD}` : ''}
+            </Title>
         </Group>
         </Panel>
     )
 }
 
-Day.propTypes = {
+Days.propTypes = {
     id: PropTypes.string.isRequired,
-    go: PropTypes.func.isRequired
+    setLPD: PropTypes.func.isRequired
 }
 
-export default Day;
+export default Days;

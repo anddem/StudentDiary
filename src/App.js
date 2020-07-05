@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import View from '@vkontakte/vkui/dist/components/View/View';
-import Root from '@vkontakte/vkui/dist/components/Root/Root'
+import Epic from '@vkontakte/vkui/dist/components/Epic/Epic';
+import Tabbar from '@vkontakte/vkui/dist/components/Tabbar/Tabbar'
+import TabbarItem from '@vkontakte/vkui/dist/components/TabbarItem/TabbarItem'
 import '@vkontakte/vkui/dist/vkui.css';
 
+import Icon36HomeOutline from '@vkontakte/icons/dist/36/home_outline';
+import Icon36Article from '@vkontakte/icons/dist/36/article';
+
 import Home from './panels/Home';
-import Day from './panels/WeekDays';
+import Days from './panels/WeekDays';
 
 function getWeekDay() {
     var days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
@@ -14,31 +19,52 @@ function getWeekDay() {
 }
 
 const App = () => {
-	const [activeView, setActiveView] = useState('today');
 	const [activePanel, setActivePanel] = useState('home');
-	const [activeStory, setActiveStory] = useState('main')
+	const [activeStory, setActiveStory] = useState('today')
+	const [lastPressedDay, setLastPressedDay] = useState(null);
 
 	var date = getWeekDay();
 
+	const setLPD = e => {
+		setLastPressedDay(e.currentTarget.dataset.day)
+	}
+
 	const go = e => {
-		if (e.currentTarget.dataset.toview) {
-			setActiveView(e.currentTarget.dataset.toview)
-		}
-		if (e.currentTarget.dataset.topanel) {
-			setActivePanel(e.currentTarget.dataset.topanel)
-		}
+		setActivePanel(e.currentTarget.dataset.to)
+	}
+
+	const onStoryChange = e => {
+		setActiveStory(e.currentTarget.dataset.story)
 	}
 
 	return (
-		<Root activeView={activeView}>
+		<Epic activeStory={activeStory} tabbar={
+			<Tabbar>
+				<TabbarItem
+				onClick={onStoryChange}
+				selected={activeStory === 'today'}
+				data-story='today'
+				text='Сегодня'>
+					<Icon36HomeOutline />
+				</TabbarItem>
+				<TabbarItem
+				onClick={onStoryChange}
+				selected={activeStory === 'week'}
+				data-story='week'
+				text='Неделя'>
+					<Icon36Article />
+				</TabbarItem>
+			</Tabbar>
+		}>
+
 			<View id='today' activePanel={activePanel}>
 				<Home id='home' go={go} today={date}/>
 			</View>
 
 			<View id='week' activePanel={activePanel}>
-				<Day id='weekdays' go={go} day={date}/>
+				<Days id='home' day={date} lastPD={lastPressedDay} setLPD={setLPD}/>
 			</View>
-		</Root>
+		</Epic>
 	);
 }
 

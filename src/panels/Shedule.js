@@ -19,7 +19,7 @@ const Days = ({go}) => {
     );
 
     return (
-        <Group header={<Header mode='secondary'>Дни недели</Header>}>
+        <Group>
             {weekDays}
         </Group>
     );

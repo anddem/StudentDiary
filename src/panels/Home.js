@@ -1,24 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import View from '@vkontakte/vkui/dist/components/View/View';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import CellButton from '@vkontakte/vkui/dist/components/CellButton/CellButton';
+import Header from '@vkontakte/vkui/dist/components/Header/Header'
 
-const Home = (props) => (
-	<Panel id={props.id}>
-    <PanelHeader>
-        Дневник студента
-    </PanelHeader>
-    <CellButton onClick={props.go} data-toview='week' data-topanel='weekdays'>
-      Перейти на View 2
-    </CellButton>
-	</Panel>
-);
+const Home = ({id}) => {
+  const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+  const today = new Date();
+
+  const [activePanel, setActivePanel] = useState('home');
+  const [day, setToday] = useState(days[today.getDay()]);
+
+  return (
+    <View id={id} activePanel={activePanel}>
+      <Panel id='home'>
+        <PanelHeader>
+            Дневник студента
+        </PanelHeader>
+        <Header>
+          Сегодня {day}
+        </Header>
+      </Panel>
+    </View>
+  )
+};
 
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
-  go: PropTypes.func.isRequired,
-	today: PropTypes.string.isRequired
 };
 
 export default Home;

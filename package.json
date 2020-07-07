@@ -1,6 +1,6 @@
 {
   "name": "studnt-diary",
-  "version": "1.0.0",
+  "version": "0.1.13",
   "description": "Summer practice",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,8 @@
     "eruda-dom": "^2.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "store": "^2.0.12"
   },
   "browserslist": {
     "production": [

@@ -78,7 +78,7 @@ const Form = ({go, day}) => {
             <Input id='teacher' top='Имя преподавателя (опционально)'/>
 
             <Textarea id='notes' top='Заметки'/>
-            <Button mode='commerce' size='xl' onClick={go} data-to='placeholder'> 
+            <Button mode='commerce' size='xl' onClick={go} data-to='main'> 
                 Сохранить изменения
             </Button>
         </FormLayout>

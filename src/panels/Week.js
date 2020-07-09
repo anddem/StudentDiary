@@ -1,12 +1,21 @@
 import React, {useState} from 'react'
-import {View, Panel, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui'
-
-import {Placeholder, Button} from '@vkontakte/vkui'
-import Icon56FaceIdOutline from '@vkontakte/icons/dist/56/face_id_outline';
+import {View, Panel, PanelHeader} from '@vkontakte/vkui'
 
 import {Days, Day} from './Day'
 
-const Week = ({id}) => {
+const Main = ({id, go}) => {
+    return(
+    <Panel id={id}>
+        <PanelHeader>
+            Расписание
+        </PanelHeader>
+        
+        <Days go={go}/>
+    </Panel>
+    )
+}
+
+const Week = ({id, db}) => {
     const [activePanel, setActivePanel] = useState('main');
 
     const go = e => {
@@ -14,36 +23,14 @@ const Week = ({id}) => {
     }
 
     return (
-        <View id={id}
-        activePanel={activePanel}>
-            <Panel id='main'>
-                <PanelHeader>
-                    Расписание
-                </PanelHeader>
-                
-                <Days go={go}/>
-            </Panel>
-            <Day id='monday' day='Понедельник' go={go}/>
-            <Day id='tuesday' day='Вторник' go={go}/>
-            <Day id='wednesday' day='Среда' go={go}/>
-            <Day id='thursday' day='Четверг' go={go}/>
-            <Day id='friday' day='Пятница' go={go}/>
-            <Day id='saturday' day='Суббота' go={go}/>
-
-            <Panel id='placeholder'>
-                <PanelHeader
-                    left={<PanelHeaderBack onClick={go} data-to='main'/>}
-                >
-                    Так, тут заглушечка красивая
-                </PanelHeader>
-                <Placeholder
-                icon={<Icon56FaceIdOutline/>}
-                action={<Button size='xl' mode='primary' onClick={go} data-to='main'>Убегаю</Button>}
-                stretched
-            >
-                    Ну тут в общем нет ничего пока, да-да
-                </Placeholder>
-            </Panel>
+        <View id={id} activePanel={activePanel}>
+            <Main id='main' go={go}/>
+            <Day id='monday' day='понедельник' go={go} db={db}/>
+            <Day id='tuesday' day='вторник' go={go} db={db}/>
+            <Day id='wednesday' day='среда' go={go} db={db}/>
+            <Day id='thursday' day='четверг' go={go} db={db}/>
+            <Day id='friday' day='пятница' go={go} db={db}/>
+            <Day id='saturday' day='суббота' go={go} db={db}/>
         </View>
     )
 }

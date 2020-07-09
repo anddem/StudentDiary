@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Root from '@vkontakte/vkui/dist/components/Root/Root'
 import Week from './Week'
 
-const Shedule = ({id}) => {
+const Shedule = ({id, db}) => {
     const [activeView, setActiveView] = useState('week')
 
     const go = e => {
@@ -12,7 +12,7 @@ const Shedule = ({id}) => {
 
     return (
         <Root id={id} activeView={activeView}>
-            <Week id='week'/>
+            <Week id='week' db={db}/>
         </Root>
     )
 }

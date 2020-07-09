@@ -1,7 +1,7 @@
 import React from 'react'
 import {Panel, PanelHeader, PanelHeaderBack, Group, CellButton} from '@vkontakte/vkui'
 
-import Form from './Form'
+import CheckShedule from './GeneralList'
 
 const daysID = ['sunday' ,'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
@@ -22,15 +22,14 @@ export const Days = ({go}) => {
         </Group>
     );
 }
-export const Day = ({id, day, go, week}) => {
+export const Day = ({id, day, go, db}) => {
 
     return (
         <Panel id={id}>
             <PanelHeader left={<PanelHeaderBack onClick={go} data-to='main'/>}>
                 {day}
             </PanelHeader>
-            <Form day={id} go={go}/>
+            <CheckShedule db={db} day={day}/>
         </Panel>
     )
 }
-

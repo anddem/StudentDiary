@@ -1,6 +1,6 @@
 {
   "name": "studnt-diary",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "Summer practice",
   "main": "index.js",
   "scripts": {

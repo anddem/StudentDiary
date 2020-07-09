@@ -5,8 +5,8 @@ const DeleteNode = (db, note) => {
     console.log(note)
     db.transaction(
         t => {
-            t.executeSql('DELETE FROM shedule WHERE subject = ? and day = ? and week = ? and time = ? and teacher = ? and notes = ?',
-            [note.subject, note.day, note.week, note.time, note.teacher, note.notes])
+            t.executeSql('DELETE FROM shedule WHERE subject = ? and day = ? and week = ? and time = ?',
+            [note.subject, note.day, note.week, note.time], (e, res) => console.log(res.rows.length))
         }
     )
 }
@@ -15,6 +15,7 @@ const GeneralList = ({db, shedule}) => {
     const [removeList, removeCell] = useState(Object.entries(shedule.rows))
 
     const remove = (note, index) => {
+        debugger
         removeCell([...removeList.slice(0, index), ...removeList.slice(index + 1)])
         DeleteNode(db, note[1])
     }

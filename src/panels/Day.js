@@ -33,4 +33,3 @@ export const Day = ({id, day, go, week}) => {
         </Panel>
     )
 }
-

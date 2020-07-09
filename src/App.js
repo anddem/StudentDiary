@@ -10,35 +10,43 @@ import Icon36Article from '@vkontakte/icons/dist/36/article';
 import Home from './panels/Home';
 import Shedule from './panels/Shedule';
 
+const TBarItem = ({onClick, story, text, selected}) => {
+	return (
+		<TabbarItem
+			onClick={onClick}
+			selected={selected === story}
+			data-story={story}
+			text={text}>
+				{story ==='today' ? <Icon36HomeOutline/> : <Icon36Article/>}
+		</TabbarItem>
+	)
+}
+
+const TBar = ({onClick, selected}) => {
+	return (
+	<Tabbar>
+		<TBarItem story='today' text='Сегодня' onClick={onClick} selected={selected}/>
+		<TBarItem story='shedule' text='Неделя' onClick={onClick} selected={selected}/>
+	</Tabbar>
+	)
+}
+
 const App = () => {
-	const [activeStory, setActiveStory] = useState('today')
+	const db = window.openDatabase('studentdiaryshedule', '1.0', 'Database for shedule in student diary.', 1*1024*1024);
+	const [activeStory, setActiveStory] = useState('today');
 
 	const onStoryChange = e => {
 		setActiveStory(e.currentTarget.dataset.story)
 	}
 
+
 	return (
 		<Epic activeStory={activeStory} tabbar={
-			<Tabbar>
-				<TabbarItem
-				onClick={onStoryChange}
-				selected={activeStory === 'today'}
-				data-story='today'
-				text='Сегодня'>
-					<Icon36HomeOutline />
-				</TabbarItem>
-				<TabbarItem
-				onClick={onStoryChange}
-				selected={activeStory === 'shedule'}
-				data-story='shedule'
-				text='Неделя'>
-					<Icon36Article />
-				</TabbarItem>
-			</Tabbar>
-		}>
+			<TBar selected={activeStory} onClick={onStoryChange} />
+			}>
 
-			<Home id='today'/>
-			<Shedule id='shedule'/>
+			<Home id='today' db={db}/>
+			<Shedule id='shedule' db={db}/>
 		</Epic>
 	);
 }

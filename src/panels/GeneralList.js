@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
 import {List, Cell, SimpleCell} from '@vkontakte/vkui'
 
-const DeleteNode = ({db, note}) => {
+const DeleteNode = (db, note) => {
+    console.log(note)
     db.transaction(
-        t=> {
-            t.executeSql('DELETE FROM shedule WHERE subject = ? day = ? week = ? time = ? teacher = ? notes = ?',
+        t => {
+            t.executeSql('DELETE FROM shedule WHERE subject = ? and day = ? and week = ? and time = ? and teacher = ? and notes = ?',
             [note.subject, note.day, note.week, note.time, note.teacher, note.notes])
         }
     )
@@ -15,18 +16,20 @@ const GeneralList = ({db, shedule}) => {
 
     const remove = (note, index) => {
         removeCell([...removeList.slice(0, index), ...removeList.slice(index + 1)])
-        DeleteNode(db, note)
+        DeleteNode(db, note[1])
     }
 
-    if (shedule.length) {
+    if (shedule.rows.length) {
         const list = removeList.map((note, index) =>
-        <Cell key={note} multiline removable onRemove={remove(note, index)}>
-            {note.day}
+        <Cell key={note} multiline removable onRemove={() => remove(note, index)}>
+            {note[1].time} {note[1].subject}
         </Cell>)
 
         return <List>{list}</List>
     }
-    return (<SimpleCell>Занятий нет</SimpleCell>)
+    else {
+        return (<SimpleCell>Занятий нет</SimpleCell>)
+    }
 }
 
 const CheckShedule = ({db, day}) => {
@@ -34,7 +37,7 @@ const CheckShedule = ({db, day}) => {
     db.readTransaction(
         t => {
             t.executeSql(
-                'SELECT time, subject, teacher FROM shedule WHERE day = ?', [day],
+                'SELECT * FROM shedule WHERE LOWER(day) = ? ORDER BY time', [day],
                 (t, success) => {
                     if (sheduleList === null) {
                         changeList(<GeneralList db={db} shedule={success}/>)

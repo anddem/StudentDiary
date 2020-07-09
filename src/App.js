@@ -6,18 +6,16 @@ import '@vkontakte/vkui/dist/vkui.css';
 
 import Icon36HomeOutline from '@vkontakte/icons/dist/36/home_outline';
 import Icon36Article from '@vkontakte/icons/dist/36/article';
+import Icon36Add from '@vkontakte/icons/dist/36/add';
 
 import Home from './panels/Home';
-import Shedule from './panels/Shedule';
+import Week from './panels/Week';
+import Form from './panels/Form';
 
-const TBarItem = ({onClick, story, text, selected}) => {
+const TBarItem = ({onClick, story, text, selected, icon}) => {
 	return (
-		<TabbarItem
-			onClick={onClick}
-			selected={selected === story}
-			data-story={story}
-			text={text}>
-				{story ==='today' ? <Icon36HomeOutline/> : <Icon36Article/>}
+		<TabbarItem onClick={onClick} selected={selected === story}	data-story={story} text={text}>
+				{icon}
 		</TabbarItem>
 	)
 }
@@ -25,8 +23,9 @@ const TBarItem = ({onClick, story, text, selected}) => {
 const TBar = ({onClick, selected}) => {
 	return (
 	<Tabbar>
-		<TBarItem story='today' text='Сегодня' onClick={onClick} selected={selected}/>
-		<TBarItem story='shedule' text='Неделя' onClick={onClick} selected={selected}/>
+		<TBarItem story='today' text='Сегодня' onClick={onClick} selected={selected} icon={<Icon36HomeOutline/>}/>
+		<TBarItem story='week' text='Неделя' onClick={onClick} selected={selected} icon={<Icon36Article/>}/>
+		<TBarItem story='form' text='Добавить занятие' onClick={onClick} selected={selected} icon={<Icon36Add/>}/>
 	</Tabbar>
 	)
 }
@@ -46,7 +45,8 @@ const App = () => {
 			}>
 
 			<Home id='today' db={db}/>
-			<Shedule id='shedule' db={db}/>
+			<Week id='week' db={db}/>
+			<Form id='form' db={db}/>
 		</Epic>
 	);
 }

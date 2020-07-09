@@ -25,12 +25,12 @@ const Week = ({id, db}) => {
     return (
         <View id={id} activePanel={activePanel}>
             <Main id='main' go={go}/>
-            <Day id='monday' day='Понедельник' go={go} db={db}/>
-            <Day id='tuesday' day='Вторник' go={go} db={db}/>
-            <Day id='wednesday' day='Среда' go={go} db={db}/>
-            <Day id='thursday' day='Четверг' go={go} db={db}/>
-            <Day id='friday' day='Пятница' go={go} db={db}/>
-            <Day id='saturday' day='Суббота' go={go} db={db}/>
+            <Day id='monday' day='понедельник' go={go} db={db}/>
+            <Day id='tuesday' day='вторник' go={go} db={db}/>
+            <Day id='wednesday' day='среда' go={go} db={db}/>
+            <Day id='thursday' day='четверг' go={go} db={db}/>
+            <Day id='friday' day='пятница' go={go} db={db}/>
+            <Day id='saturday' day='суббота' go={go} db={db}/>
         </View>
     )
 }

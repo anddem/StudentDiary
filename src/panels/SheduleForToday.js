@@ -6,9 +6,9 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 
 import PHolder from './PHolder'
 
-const Today = (shedule) => { //Функция, формирующая расписание на главном экране
+const Today = shedule => { //Функция, формирующая расписание на главном экране
     if (shedule.length) { //Если в ответе на запрос есть записи
-      const list = Object.keys(shedule).map((num) => <Cell>`${shedule.item(num).time} ${shedule.item(num).subject}`</Cell>) //Формируется map из необходимых элементов
+      const list = Object.keys(shedule).map((num) => <Cell>{shedule.item(num).time} {shedule.item(num).subject}</Cell>) //Формируется map из необходимых элементов
       return (<List>{list}</List>) //Возвращается в одном элементе Group
     }
       return (<PHolder/>) //Иначе возвращается плейсхолдер
@@ -24,11 +24,10 @@ const createNewShedule = (db) => { //создание новой таблицы 
 
 export const SheduleForToday = ({db, day}) => {
     const [shedule, setShedule] = useState(null); //Элемент с расписанием, по умолчанию null
-  
     db.readTransaction( //начало транзакции на чтение
       t => { //lamиda-функция транзакции
         t.executeSql( //Выполнить SQL запрос к БД на устройстве
-            'SELECT * FROM shedule WHERE day = ? ORDER BY time', [day], //Запрос, подстановки вместо знаков вопроса
+            'SELECT * FROM shedule WHERE LOWER(day) = ? ORDER BY time', [day], //Запрос, подстановки вместо знаков вопроса
             (t, success) => {//lambda-функция, вызываемая при успешном запросе
             if (shedule === null) { setShedule(Today(success.rows)) }
             },

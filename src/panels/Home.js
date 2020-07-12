@@ -1,36 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import View from '@vkontakte/vkui/dist/components/View/View';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
 
-import {SheduleForToday} from './SheduleForToday'
+import SheduleForToday from './SheduleForToday'
 
-const PHome = ({id, db, day}) => {
+const PHome = ({id, db}) => {
   return (
     <Panel id={id}>
       <PanelHeader>
           Дневник студента
       </PanelHeader>
-      <SheduleForToday db={db} day={day}/>
+      <SheduleForToday db={db}/>
     </Panel>
   )
 }
 
-const Home = ({id, db}) => {
-    const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
-    const activePanel  = 'home';
-    const day = days[new Date().getDay()];
-
+const Home = ({id, db}) => { //Главная страница приложения
     return (
-        <View id={id} activePanel={activePanel}>
-            <PHome id='home' db={db} day={day}/>
+        <View id={id} activePanel='home'>
+            <PHome id='home' db={db}/>
         </View>
     )
-};
-
-Home.propTypes = {
-	id: PropTypes.string.isRequired,
 };
 
 export default Home;

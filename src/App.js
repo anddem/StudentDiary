@@ -12,7 +12,7 @@ import Home from './panels/Home';
 import Week from './panels/Week';
 import Form from './panels/Form';
 
-const TBarItem = ({onClick, story, text, selected, icon}) => {
+const TBarItem = ({onClick, story, text, selected, icon}) => { //Шаблон элемента нижнего меню
 	return (
 		<TabbarItem onClick={onClick} selected={selected === story}	data-story={story} text={text}>
 				{icon}
@@ -20,7 +20,7 @@ const TBarItem = ({onClick, story, text, selected, icon}) => {
 	)
 }
 
-const TBar = ({onClick, selected}) => {
+const TBar = ({onClick, selected}) => { //Нижнее меню
 	return (
 	<Tabbar>
 		<TBarItem story='today' text='Сегодня' onClick={onClick} selected={selected} icon={<Icon36HomeOutline/>}/>
@@ -30,43 +30,24 @@ const TBar = ({onClick, selected}) => {
 	)
 }
 
-const App = () => {
-	const db = window.openDatabase('studentdiaryshedule', '1.0', 'Database for shedule in student diary.', 1*1024*1024);
-	const [activeStory, setActiveStory] = useState('today');
+const CEpic = ({activeStory, onClick, db}) =>
+	<Epic activeStory={activeStory} tabbar={<TBar selected={activeStory} onClick={onClick}/>}>
+		<Home id='today' db={db}/>
+		<Week id='week' db={db}/>
+		<Form id='form' db={db}/>
+	</Epic>
+
+const App = () => { //Основа приложения
+	const db = window.openDatabase('studentdiaryshedule', '1.0', 'Database for shedule in student diary.', 1*1024*1024); //База данных WebSQL
+	const [activeStory, setActiveStory] = useState('today'); //id элемента, который необходимо рендерить в данный момент
 
 	const onStoryChange = e => {
 		setActiveStory(e.currentTarget.dataset.story)
 	}
 
-
 	return (
-		<Epic activeStory={activeStory} tabbar={
-			<TBar selected={activeStory} onClick={onStoryChange} />
-			}>
-
-			<Home id='today' db={db}/>
-			<Week id='week' db={db}/>
-			<Form id='form' db={db}/>
-		</Epic>
+		<CEpic activeStory={activeStory} onClick={onStoryChange} db={db}/>
 	);
 }
 
 export default App;
-
-/*
-	useEffect(() => {
-		bridge.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
-		});
-		async function fetchData() {
-			const user = await bridge.send('VKWebAppGetUserInfo');
-			setUser(user);
-			setPopout(null);
-		}
-		fetchData();
-	}, []);
-*/

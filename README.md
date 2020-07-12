@@ -2,24 +2,6 @@
 
 # Create VK Mini App [![npm][npm]][npm-url] [![deps][deps]][deps-url]
 
-## How to install
-
-### Create VK Mini App with gh-pages deploy
-
-`npx @vkontakte/create-vk-mini-app <app-directory-name>`
-
-### Create VK Mini App with Zeit deploy
-
-Firstly, you have to create Zeit account and connect it with your GitHub profile — https://zeit.co/
-
-`npx @vkontakte/create-vk-mini-app <app-directory-name> --zeit`
-
-### Create VK Mini App with Surge deploy
-
-Firstly, you have to create Surge account and Surge-domain — https://surge.sh/
-
-`npx @vkontakte/create-vk-mini-app <app-directory-name> --surge <surge-domain>`
-
 ## How to start work with app
 
 Go to created folder and run:

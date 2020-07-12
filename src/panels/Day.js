@@ -3,15 +3,15 @@ import {Panel, PanelHeader, PanelHeaderBack, Group, CellButton} from '@vkontakte
 
 import CheckShedule from './GeneralList'
 
-const daysID = ['sunday' ,'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+const daysID = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
 const days = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
 
-export const Days = ({go}) => {
+export const Days = ({go}) => { //Генерируемый список кнопок-ссылок на каждый день
     const weekDays = days.map((day, index) => 
     <CellButton
-        key={daysID[index+1]}
+        key={daysID[index]}
         onClick={go}
-        data-to={daysID[index+1]}>
+        data-to={daysID[index]}>
         {day}
     </CellButton>
     );
@@ -22,8 +22,7 @@ export const Days = ({go}) => {
         </Group>
     );
 }
-export const Day = ({id, day, go, db}) => {
-
+export const Day = ({id, day, go, db}) => { //Шаблон панели с информацией о расписании на день
     return (
         <Panel id={id}>
             <PanelHeader left={<PanelHeaderBack onClick={go} data-to='main'/>}>

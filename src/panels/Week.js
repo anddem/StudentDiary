@@ -3,7 +3,7 @@ import {View, Panel, PanelHeader} from '@vkontakte/vkui'
 
 import {Days, Day} from './Day'
 
-const Main = ({id, go}) => {
+const Main = ({id, go}) => { //Панель с общим списком дней
     return(
     <Panel id={id}>
         <PanelHeader>
@@ -15,7 +15,7 @@ const Main = ({id, go}) => {
     )
 }
 
-const Week = ({id, db}) => {
+const Week = ({id, db}) => { //Панели для второй вкладки -- общий список дней и панель с каждыйм из них подробнее
     const [activePanel, setActivePanel] = useState('main');
 
     const go = e => {
@@ -24,13 +24,13 @@ const Week = ({id, db}) => {
 
     return (
         <View id={id} activePanel={activePanel}>
-            <Main id='main' go={go}/>
-            <Day id='monday' day='понедельник' go={go} db={db}/>
-            <Day id='tuesday' day='вторник' go={go} db={db}/>
-            <Day id='wednesday' day='среда' go={go} db={db}/>
-            <Day id='thursday' day='четверг' go={go} db={db}/>
-            <Day id='friday' day='пятница' go={go} db={db}/>
-            <Day id='saturday' day='суббота' go={go} db={db}/>
+            <Main id='main' go={go}/> 
+            <Day id='monday' day='Понедельник' go={go} db={db}/>
+            <Day id='tuesday' day='Вторник' go={go} db={db}/>
+            <Day id='wednesday' day='Среда' go={go} db={db}/>
+            <Day id='thursday' day='Четверг' go={go} db={db}/>
+            <Day id='friday' day='Пятница' go={go} db={db}/>
+            <Day id='saturday' day='Суббота' go={go} db={db}/>
         </View>
     )
 }
